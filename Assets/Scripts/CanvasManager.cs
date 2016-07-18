@@ -22,6 +22,7 @@ public class CanvasManager : MonoBehaviour {
     public GameObject BCResearchCost;
     public GameObject BCValueUpCost;
     public Button BCButton;
+    public Slider BCSlider;
     private BottleCap bottleCap;
     private GameManager gameManager;
     public bool isSearchingBC = false;
@@ -49,14 +50,10 @@ public class CanvasManager : MonoBehaviour {
 
         if (isSearchingBC)
         {
-
-
-
-
-
+            BCSlider.value = timeRemaining;
             displayBCSearchResult(0);
             timeRemaining -= Time.deltaTime;
-            BCSearchTime.text = timeRemaining.ToString("#.0");
+            BCSearchTime.text = "Time Remaining     " + timeRemaining.ToString("#.0");
             BCButton.interactable = false;
             if (timeRemaining <= 0)
             {

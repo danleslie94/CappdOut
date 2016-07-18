@@ -18,8 +18,10 @@ public class BottleCap : MonoBehaviour {
     
     public void bottleCapSearch()
     {
+        canvasManager.BCSlider.maxValue = bottleCapSearchTime;
         canvasManager.timeRemaining = bottleCapSearchTime;
         canvasManager.isSearchingBC = true;               
     }
+
  
 }
