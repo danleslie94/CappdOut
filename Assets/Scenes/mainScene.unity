@@ -1499,6 +1499,7 @@ MonoBehaviour:
   ResearchScreen: {fileID: 1868788621}
   UpgradeScreen: {fileID: 51464102}
   RecycleBoxScreen: {fileID: 505455996}
+  RecycleBoxButton: {fileID: 1852699277}
   background: {fileID: 159298663}
   cashText: {fileID: 144831811}
   cashTextInResearch: {fileID: 1119426702}
@@ -3841,6 +3842,7 @@ GameObject:
   - 222: {fileID: 1852699279}
   - 114: {fileID: 1852699278}
   - 114: {fileID: 1852699277}
+  - 114: {fileID: 1852699280}
   m_Layer: 8
   m_Name: RecycleBoxButton
   m_TagString: Untagged
@@ -3951,6 +3953,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1852699275}
+--- !u!114 &1852699280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1852699275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52f360f39afd29419563460a6983710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startBlink: 0
+  blinkSpeed: 5
+  button: {fileID: 0}
 --- !u!1 &1856247694
 GameObject:
   m_ObjectHideFlags: 0

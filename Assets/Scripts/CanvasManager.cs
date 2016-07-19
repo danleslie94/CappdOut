@@ -12,6 +12,8 @@ public class CanvasManager : MonoBehaviour {
     public Canvas UpgradeScreen;
     public Canvas RecycleBoxScreen;
 
+    public Button RecycleBoxButton;
+
     public Image background;
 
     public Text cashText;
@@ -52,7 +54,15 @@ public class CanvasManager : MonoBehaviour {
         cashTextInRecycleBox.text = "$" + gameManager.GetPlayerCash();
         BCResearchCost.GetComponent<Text>().text = "$" + database.items[0].researchCost;
         BCValueUpCost.GetComponent<Text>().text = "$" + database.items[0].valueIncreaseCost;
-        
+
+        if (inventory.inventory.Count > 0)
+        {
+            RecycleBoxButton.GetComponent<Blink>().StartBlink();
+        }
+        else if(inventory.inventory.Count <= 0 )
+        {
+            RecycleBoxButton.GetComponent<Blink>().StopBlink();
+        }
 
         if (isSearchingBC)
         {
