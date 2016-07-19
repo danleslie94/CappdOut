@@ -8,7 +8,11 @@ public class Item {
     public int itemID;
     public string itemDescription;
     public Texture2D itemIcon;
-    public float price;
+    public float searchEfficiency;
+    public float searchTime;
+    public float researchCost;    
+    public float value;
+    public float valueIncreaseCost;
 
-    
+
 }

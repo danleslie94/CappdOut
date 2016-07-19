@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(BottleCap))]
+[RequireComponent(typeof(ItemDatabase))]
 
 
 public class CanvasManager : MonoBehaviour {
@@ -10,12 +10,14 @@ public class CanvasManager : MonoBehaviour {
     public Canvas GameScreen;
     public Canvas ResearchScreen;
     public Canvas UpgradeScreen;
+    public Canvas RecycleBoxScreen;
 
     public Image background;
 
     public Text cashText;
     public Text cashTextInResearch;
     public Text cashTextInUpgrades;
+    public Text cashTextInRecycleBox;
 
     public Text BCSearchResult;
     public Text BCSearchTime;
@@ -23,18 +25,22 @@ public class CanvasManager : MonoBehaviour {
     public GameObject BCValueUpCost;
     public Button BCButton;
     public Slider BCSlider;
-    private BottleCap bottleCap;
     private GameManager gameManager;
+    private ItemDatabase database;
+    private Inventory inventory;
+
     public bool isSearchingBC = false;
 
     public float timeRemaining = 0.0f;
 
     void Start()
     {
+        database = GameObject.FindGameObjectWithTag("Item Database").GetComponent<ItemDatabase>();
+        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         ResearchScreen.enabled = false;
         UpgradeScreen.enabled = false;
-        gameManager = GetComponent<GameManager>();
-        bottleCap = GetComponent<BottleCap>();
+        RecycleBoxScreen.enabled = false;
+        gameManager = GetComponent<GameManager>();      
 
     }
     void Update()
@@ -43,9 +49,9 @@ public class CanvasManager : MonoBehaviour {
         cashText.text = "$" + gameManager.GetPlayerCash();
         cashTextInResearch.text = "$" + gameManager.GetPlayerCash();
         cashTextInUpgrades.text = "$" + gameManager.GetPlayerCash();
-
-        BCResearchCost.GetComponent<Text>().text = "$" + bottleCap.bCResearchCost;
-        BCValueUpCost.GetComponent<Text>().text = "$" + bottleCap.bottleCapValueIncreaseCost;
+        cashTextInRecycleBox.text = "$" + gameManager.GetPlayerCash();
+        BCResearchCost.GetComponent<Text>().text = "$" + database.items[0].researchCost;
+        BCValueUpCost.GetComponent<Text>().text = "$" + database.items[0].valueIncreaseCost;
         
 
         if (isSearchingBC)
@@ -59,9 +65,9 @@ public class CanvasManager : MonoBehaviour {
             {
                 isSearchingBC = false;
                 float rando = Random.Range(gameManager.efficiencyCheckMin, gameManager.efficiencyCheckMax);
-                if (rando <= bottleCap.bCSearchEff)
+                if (rando <= database.items[0].searchEfficiency)
                 {
-                    gameManager.IncreasePlayerCash(bottleCap.bottleCapValue);
+                    inventory.AddToRecycleBox(database.items[0]);
                     displayBCSearchResult(1);
                 }
                 else
@@ -100,22 +106,28 @@ public class CanvasManager : MonoBehaviour {
         UpgradeScreen.enabled = false;
         ResearchScreen.enabled = true;
     }
+    public void bottleCapSearch()
+    {
+        BCSlider.maxValue = database.items[0].searchTime;
+        timeRemaining = database.items[0].searchTime;
+        isSearchingBC = true;
+    }
     public void incBCSearchEff()
     {
-        if (gameManager.playerCash >= bottleCap.bCResearchCost)
+        if (gameManager.playerCash >= database.items[0].researchCost)
         {
-            gameManager.playerCash = gameManager.playerCash - bottleCap.bCResearchCost;
-            bottleCap.bCSearchEff += 2.5f;
-            bottleCap.bCResearchCost += 1.75f;
+            gameManager.playerCash = gameManager.playerCash - database.items[0].researchCost;
+            database.items[0].searchEfficiency += 2.5f;
+            database.items[0].researchCost += 1.75f;
         }
     }
     public void incBCValue()
     {
-        if (gameManager.playerCash >= bottleCap.bottleCapValueIncreaseCost)
+        if (gameManager.playerCash >= database.items[0].valueIncreaseCost)
         {
-            gameManager.playerCash = gameManager.playerCash - bottleCap.bottleCapValueIncreaseCost;
-            bottleCap.bottleCapValueIncreaseCost += 2.5f;
-            bottleCap.bottleCapValue += 0.05f;
+            gameManager.playerCash = gameManager.playerCash - database.items[0].valueIncreaseCost;
+            database.items[0].valueIncreaseCost += 2.5f;
+            database.items[0].value += 0.05f;
         }
     }
     public void researchToMain()
@@ -129,5 +141,13 @@ public class CanvasManager : MonoBehaviour {
     public void upgradesToMain()
     {
         UpgradeScreen.enabled = false;
+    }
+    public void goToRecycleBox()
+    {
+        RecycleBoxScreen.enabled = true;
+    }
+    public void recycleToMain()
+    {
+        RecycleBoxScreen.enabled = false;
     }
 }

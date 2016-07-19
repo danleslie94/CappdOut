@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
-
 public class GameManager : MonoBehaviour 
 {
 	static GameManager _instance = null;
