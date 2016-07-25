@@ -40,12 +40,12 @@ public class Blink : MonoBehaviour {
     {
         if (blink)
         {
-            Debug.Log("Button Blue");
+         
             button.GetComponent<Button>().image.color = Color.cyan;
         }
         else
         {
-            Debug.Log("Button White");
+            
             button.GetComponent<Button>().image.color = Color.white;
         }
     }

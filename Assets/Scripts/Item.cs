@@ -13,6 +13,7 @@ public class Item {
     public float researchCost;    
     public float value;
     public float valueIncreaseCost;
+	public float unlockCost;
 
 
 }
