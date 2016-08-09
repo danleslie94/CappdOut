@@ -14,9 +14,13 @@ public class CanvasManager : MonoBehaviour {
 	public Canvas UnlockScreen;
 
     public Button RecycleBoxButton;
+    public GameObject RecycleBoxButtonObj;
 	public Button UpgradesButton;
+    public GameObject UpgradesButtonObj;
 	public Button ResearchButton;
+    public GameObject ResearchButtonObj;
 	public Button UnlocksButton;
+    public GameObject UnlocksButtonObj;
     public Image background;
 
     public Text cashText;
@@ -49,10 +53,13 @@ public class CanvasManager : MonoBehaviour {
     private ItemDatabase database;
     private Inventory inventory;
 
-	int inventorySizeCount = 3;
-    bool inventoryFull = false;
+    public Text RecycleBoxTotal;
+    public Text RecycleBoxSpace;
 
-  
+	int inventoryMaxSize = 3;
+    bool inventoryFull = false;
+    bool buttonsShowing = false;
+    bool isInRecycleBox = false;
 
     void Start()
     {
@@ -72,12 +79,27 @@ public class CanvasManager : MonoBehaviour {
 		//Text Displays
         cashText.fontSize = 20;
         cashText.text = "$" + gameManager.GetPlayerCash().ToString("#.00");
-        cashTextInResearch.text = "$" + gameManager.GetPlayerCash();
-        cashTextInUpgrades.text = "$" + gameManager.GetPlayerCash();
-        cashTextInRecycleBox.text = "$" + gameManager.GetPlayerCash();
+        cashTextInResearch.text = "$" + gameManager.GetPlayerCash().ToString("#.00");
+        cashTextInUpgrades.text = "$" + gameManager.GetPlayerCash().ToString("#.00");
+        cashTextInRecycleBox.text = "$" + gameManager.GetPlayerCash().ToString("#.00");
         BCSearchEffResearchCost.GetComponent<Text>().text = "$" + database.items[0].researchCost;
         BCValueUpCost.GetComponent<Text>().text = "$" + database.items[0].valueIncreaseCost;
 
+        //Button Display control
+        if (buttonsShowing)
+        {
+            RecycleBoxButtonObj.SetActive(true);
+            UnlocksButtonObj.SetActive(true);
+            ResearchButtonObj.SetActive(true);
+            UpgradesButtonObj.SetActive(true);
+        }
+        else
+        {
+            RecycleBoxButtonObj.SetActive(false);
+            UnlocksButtonObj.SetActive(false);
+            ResearchButtonObj.SetActive(false);
+            UpgradesButtonObj.SetActive(false);
+        }
 		//Blink control 
         if (inventory.inventory.Count > 0)
         {
@@ -87,11 +109,20 @@ public class CanvasManager : MonoBehaviour {
         {
             RecycleBoxButton.GetComponent<Blink>().StopBlink();
         }
+        //In Recycle Box Check
+        if (isInRecycleBox)
+        {
+            RecycleBoxTotal.text = "$ " + inventory.ReturnTotalCashValueOfItemsInRecycleBox();
+            RecycleBoxSpace.text = inventory.inventory.Count + "/" + inventoryMaxSize;
+        }
+        else
+        {
 
-		if(inventory.inventory.Count >= inventorySizeCount)
+        }
+        //Inventory Size Check
+		if(inventory.inventory.Count >= inventoryMaxSize)
 		{
 			inventoryFull = true;
-
 		}
 		else
 		{
@@ -109,8 +140,10 @@ public class CanvasManager : MonoBehaviour {
 			BCButton.interactable = true;
 			TCButton.interactable = true;
 		}
+
+
 		//Bottle Cap searching
-        if (isSearchingBC)
+        if (isSearchingBC && !inventoryFull)
         {
 			BCSlider.value = BCtimeRemaining;
 			displayBCSearchResult(0);
@@ -139,7 +172,7 @@ public class CanvasManager : MonoBehaviour {
 		}
 		
 		//Tin Can searching
-		if(isSearchingTC)
+		if(isSearchingTC && !inventoryFull)
 		{
 			TCSlider.value = TCtimeRemaining;
 			displayTCSearchResult(0);
@@ -161,7 +194,7 @@ public class CanvasManager : MonoBehaviour {
 				}
 			}
 		}
-		else if(!isSearchingTC)
+		else if(!isSearchingTC && !inventoryFull)
 		{
 			TCButton.interactable = true;
 		}
@@ -262,8 +295,18 @@ public class CanvasManager : MonoBehaviour {
 			database.items[1].value += 0.5f;
 		}
 	}
-	//================================================================================
-
+    //================================================================================
+    public void displayButtons()
+    {
+        if (buttonsShowing)
+        {
+            buttonsShowing = false;
+        }
+        else
+        {
+            buttonsShowing = true;
+        }
+    }
 
 	//================================================================================
 	//Go to research screen from main screen
@@ -290,11 +333,14 @@ public class CanvasManager : MonoBehaviour {
     public void goToRecycleBox()
     {
         RecycleBoxScreen.enabled = true;
+        isInRecycleBox = true;
+        inventory.CalculateTotalCashValueOfItemsInRecycleBox();
     }
 	//Go to main screen from recycle box screen
     public void recycleToMain()
     {
         RecycleBoxScreen.enabled = false;
+        isInRecycleBox = false;
     }
 	//Go to unlocks screen from main screen
 	public void goToUnlocks()
@@ -313,8 +359,13 @@ public class CanvasManager : MonoBehaviour {
 	//Unlocks Tin Can Button
 	public void unlockTC()
 	{
-		TCButtonObj.SetActive(true);
-		TCButton.interactable = true;
+        if (gameManager.GetPlayerCash() >= database.items[1].unlockCost)
+        {
+            TCButtonObj.SetActive(true);
+            TCButton.interactable = true;
+            gameManager.playerCash = gameManager.playerCash - database.items[1].unlockCost;
+        }
+		
 	}
 	//================================================================================
 }
