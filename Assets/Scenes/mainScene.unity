@@ -1213,23 +1213,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22404120, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22404120, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451104, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451104, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451104, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 158580, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_Name
@@ -1555,23 +1555,23 @@ Prefab:
       objectReference: {fileID: 555382525}
     - target: {fileID: 22404120, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22404120, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451104, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451104, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22451104, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 147580, guid: 90994965ee7b9c34d961370ec2a4c7d0, type: 2}
       propertyPath: m_Name
@@ -2044,14 +2044,11 @@ MonoBehaviour:
   UpgradeScreen: {fileID: 51464102}
   RecycleBoxScreen: {fileID: 505455996}
   UnlockScreen: {fileID: 339607999}
-  RecycleBoxButton: {fileID: 1852699277}
   RecycleBoxButtonObj: {fileID: 1852699275}
-  UpgradesButton: {fileID: 1106302310}
   UpgradesButtonObj: {fileID: 1106302308}
-  ResearchButton: {fileID: 575008041}
   ResearchButtonObj: {fileID: 575008039}
-  UnlocksButton: {fileID: 2110281424}
   UnlocksButtonObj: {fileID: 2110281421}
+  ShowButtonsButtonObj: {fileID: 1507240410}
   background: {fileID: 159298663}
   cashText: {fileID: 144831811}
   cashTextInResearch: {fileID: 126733349}
@@ -2085,6 +2082,7 @@ GameObject:
   - 222: {fileID: 575008043}
   - 114: {fileID: 575008042}
   - 114: {fileID: 575008041}
+  - 114: {fileID: 575008044}
   m_Layer: 8
   m_Name: ResearchButton
   m_TagString: Untagged
@@ -2195,6 +2193,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 575008039}
+--- !u!114 &575008044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 575008039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52f360f39afd29419563460a6983710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisBlinkColor: 3
+  startBlink: 0
+  blinkTime: 1
+  button: {fileID: 0}
 --- !u!114 &651767544 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11453832, guid: 90994965ee7b9c34d961370ec2a4c7d0,
@@ -3463,6 +3476,7 @@ GameObject:
   - 222: {fileID: 1106302312}
   - 114: {fileID: 1106302311}
   - 114: {fileID: 1106302310}
+  - 114: {fileID: 1106302313}
   m_Layer: 8
   m_Name: UpgradeButton
   m_TagString: Untagged
@@ -3573,6 +3587,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1106302308}
+--- !u!114 &1106302313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1106302308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52f360f39afd29419563460a6983710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisBlinkColor: 1
+  startBlink: 0
+  blinkTime: 1
+  button: {fileID: 0}
 --- !u!1 &1121267585
 GameObject:
   m_ObjectHideFlags: 0
@@ -4229,6 +4258,7 @@ GameObject:
   - 222: {fileID: 1507240414}
   - 114: {fileID: 1507240413}
   - 114: {fileID: 1507240412}
+  - 114: {fileID: 1507240415}
   m_Layer: 8
   m_Name: ShowButtonsButton
   m_TagString: Untagged
@@ -4339,6 +4369,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1507240410}
+--- !u!114 &1507240415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1507240410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52f360f39afd29419563460a6983710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisBlinkColor: 1
+  startBlink: 0
+  blinkTime: .5
+  button: {fileID: 0}
 --- !u!1 &1516926074
 GameObject:
   m_ObjectHideFlags: 0
@@ -5164,8 +5209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52f360f39afd29419563460a6983710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBlink: 1
-  blinkSpeed: 8
+  thisBlinkColor: 2
+  startBlink: 0
+  blinkTime: .5
   button: {fileID: 0}
 --- !u!1 &1854871374
 GameObject:
@@ -6308,8 +6354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52f360f39afd29419563460a6983710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisBlinkColor: 0
   startBlink: 0
-  blinkSpeed: 5
+  blinkTime: 1
   button: {fileID: 0}
 --- !u!114 &2110281424
 MonoBehaviour:

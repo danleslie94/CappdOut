@@ -13,14 +13,11 @@ public class CanvasManager : MonoBehaviour {
     public Canvas RecycleBoxScreen;
 	public Canvas UnlockScreen;
 
-    public Button RecycleBoxButton;
     public GameObject RecycleBoxButtonObj;
-	public Button UpgradesButton;
     public GameObject UpgradesButtonObj;
-	public Button ResearchButton;
     public GameObject ResearchButtonObj;
-	public Button UnlocksButton;
     public GameObject UnlocksButtonObj;
+    public GameObject ShowButtonsButtonObj;
     public Image background;
 
     public Text cashText;
@@ -74,6 +71,7 @@ public class CanvasManager : MonoBehaviour {
 		TCButton.interactable = false;
 
     }
+    //========================================================================
     void Update()
     {
 		//Text Displays
@@ -100,14 +98,31 @@ public class CanvasManager : MonoBehaviour {
             ResearchButtonObj.SetActive(false);
             UpgradesButtonObj.SetActive(false);
         }
+
 		//Blink control 
         if (inventory.inventory.Count > 0)
         {
-            RecycleBoxButton.GetComponent<Blink>().StartBlink();
+            if (buttonsShowing)
+            {
+                RecycleBoxButtonObj.GetComponent<Blink>().StartBlink();
+                ShowButtonsButtonObj.GetComponent<Blink>().StopBlink();
+            }
+            else
+            {
+                ShowButtonsButtonObj.GetComponent<Blink>().StartBlink();
+            }
+            
         }
         else if(inventory.inventory.Count <= 0 )
         {
-            RecycleBoxButton.GetComponent<Blink>().StopBlink();
+            if (buttonsShowing)
+            {
+                RecycleBoxButtonObj.GetComponent<Blink>().StopBlink();
+            }
+            else
+            {
+                ShowButtonsButtonObj.GetComponent<Blink>().StopBlink();
+            }
         }
         //In Recycle Box Check
         if (isInRecycleBox)

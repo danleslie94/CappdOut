@@ -2,18 +2,44 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+public enum Colors
+{
+    CYAN,
+    GREEN,
+    BLUE,
+    MAGENTA
+};
 public class Blink : MonoBehaviour {
 
-
-    private bool blink = false;
+    public Colors thisBlinkColor;
+    private Color blinkColor;
+    private Color defaultColor;
     public bool startBlink = false;
-    private int count = 0;
-    public int blinkSpeed = 5;
+    public float blinkTime = 2.5f;
     public Button button;
 	
 	void Start ()
     {
         button = GetComponent<Button>();
+        defaultColor = Color.white;
+
+        if (thisBlinkColor == Colors.CYAN)
+        {
+            blinkColor = Color.cyan;
+        }
+        else if (thisBlinkColor == Colors.BLUE)
+        {
+            blinkColor = Color.blue;
+        }
+        else if (thisBlinkColor == Colors.GREEN)
+        {
+            blinkColor = Color.green;
+        }
+        else if (thisBlinkColor == Colors.MAGENTA)
+        {
+            blinkColor = Color.magenta;
+        }
 	}
 	
 	
@@ -21,33 +47,26 @@ public class Blink : MonoBehaviour {
     {
         if (startBlink)
         {
-            if (count == blinkSpeed)
+            if (button.GetComponent<Button>().image.color == blinkColor)
             {
-                blink = true;
-                count = 0;
+                StartCoroutine(BlinkForXSeconds(blinkTime, defaultColor));
             }
-            else
+            else if (button.GetComponent<Button>().image.color == defaultColor)
             {
-                blink = false;
+                StartCoroutine(BlinkForXSeconds(blinkTime, blinkColor));
             }
-            count++;
-        }
-
-        
-        
-	}
-    void OnGUI()
-    {
-        if (blink)
-        {
-         
-            button.GetComponent<Button>().image.color = Color.cyan;
         }
         else
         {
-            
-            button.GetComponent<Button>().image.color = Color.white;
+            button.GetComponent<Button>().image.color = defaultColor;
         }
+     
+
+    }
+    IEnumerator BlinkForXSeconds(float blinkTime, Color colorChange)
+    {
+        yield return new WaitForSeconds(blinkTime);
+        button.GetComponent<Button>().image.color = colorChange;
     }
     public void StartBlink()
     {
@@ -58,3 +77,4 @@ public class Blink : MonoBehaviour {
         startBlink = false;
     }
 }
+  
