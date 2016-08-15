@@ -252,7 +252,7 @@ public class CanvasManager : MonoBehaviour {
             database.items[0].researchCost += 1.75f;
         }
     }
-	//Increase the bottle cap value
+	//Increase the bottle cap value and the cost to increase the value
     public void incBCValue()
     {
         if (gameManager.playerCash >= database.items[0].valueIncreaseCost)
