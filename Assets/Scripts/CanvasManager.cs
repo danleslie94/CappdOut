@@ -42,6 +42,7 @@ public class CanvasManager : MonoBehaviour {
 	public GameObject TCUnlockCost;
 	public GameObject TCButtonObj;
 	public Button TCButton;
+    public Button TCUnlockButton;
 	public Slider TCSlider;
 	bool isSearchingTC = false;
 	float TCtimeRemaining = 0.0f;
@@ -356,6 +357,7 @@ public class CanvasManager : MonoBehaviour {
     {
         RecycleBoxScreen.enabled = false;
         isInRecycleBox = false;
+        inventory.boxValue = 0.0f;
     }
 	//Go to unlocks screen from main screen
 	public void goToUnlocks()
@@ -379,6 +381,7 @@ public class CanvasManager : MonoBehaviour {
             TCButtonObj.SetActive(true);
             TCButton.interactable = true;
             gameManager.playerCash = gameManager.playerCash - database.items[1].unlockCost;
+
         }
 		
 	}

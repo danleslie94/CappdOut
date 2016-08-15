@@ -14,6 +14,7 @@ public class Item {
     public float value;
     public float valueIncreaseCost;
 	public float unlockCost;
-
+    public int stackableSize;
+    public bool firstBoxUpgrade;
 
 }
